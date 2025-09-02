@@ -1,11 +1,13 @@
 export class Conta {
 
+    //Declaração dos atributos
     private _numero: number;
     private _agencia: number;
     private _tipo: number;
     private _titular: string;
     private _saldo: number;
 
+    //Método construtor
     constructor(numero: number, agencia: number, tipo: number, titular: string, saldo: number) {
         this._numero = numero;
         this._agencia = agencia;
@@ -14,6 +16,7 @@ export class Conta {
         this._saldo = saldo;
     }
 
+    //Métodos get e set
     public get numero() {
         return this._numero;
     }
@@ -54,6 +57,7 @@ export class Conta {
         this._saldo = saldo;
     }
 
+    //Métodos específicos
     public sacar(valor: number): boolean {
 
         if (this._saldo < valor) {
