@@ -11,9 +11,10 @@ export function main() {
     let contas: ContaController = new ContaController();
 
     // Variáveis Auxiliares
-    let opcao, numero, agencia, tipo, saldo, limite, aniversario: number;
+    let opcao, numero, agencia, tipo, saldo, limite, aniversario, valor, numeroDestino: number;
     let titular: string;
     const tiposContas = ['Conta Corrente', 'Conta Poupanca'];
+
     console.log("\nCriar Contas\n");
 
     let cc1: ContaCorrente = new ContaCorrente(contas.gerarNumero(), 123, 1, "João da Silva", 1000, 100.0);
@@ -159,8 +160,7 @@ export function main() {
                 break;
 
             case 5:
-                console.log(colors.fg.whitestrong,
-                    "\n\nApagar uma Conta\n\n", colors.reset);
+                console.log(colors.fg.whitestrong, "\n\nApagar uma Conta\n\n", colors.reset);
                 console.log("Digite o número da conta: ");
                 numero = rs.questionInt("");
                 contas.deletar(numero);
@@ -168,20 +168,44 @@ export function main() {
                 keyPress();
                 break;
             case 6:
-                console.log(colors.fg.whitestrong,
-                    "\n\nSaque\n\n", colors.reset);
+                console.log(colors.fg.whitestrong, "\n\nSaque\n\n", colors.reset);
+
+                console.log("Digite o número da conta: ");
+                numero = rs.questionInt("");
+
+                console.log("Digite o valor do Saque (R$): ");
+                valor = rs.questionFloat("");
+
+                contas.sacar(numero, valor);
 
                 keyPress();
                 break;
             case 7:
-                console.log(colors.fg.whitestrong,
-                    "\n\nDepósito\n\n", colors.reset);
+                console.log(colors.fg.whitestrong, "\n\nDepósito\n\n", colors.reset);
+
+                console.log("Digite o número da conta: ");
+                numero = rs.questionInt("");
+
+                console.log("Digite o valor do Depósito (R$): ");
+                valor = rs.questionFloat("");
+
+                contas.depositar(numero, valor);
 
                 keyPress();
                 break;
             case 8:
-                console.log(colors.fg.whitestrong,
-                    "\n\nTransferência entre Contas\n\n", colors.reset);
+                console.log(colors.fg.whitestrong, "\n\nTransferência entre Contas\n\n", colors.reset);
+
+                console.log("Digite o número da conta de origem: ");
+                numero = rs.questionInt("");
+
+                console.log("Digite o número da conta de destino: ");
+                numeroDestino = rs.questionInt("");
+
+                console.log("Digite o valor do Depósito (R$): ");
+                valor = rs.questionFloat("");
+
+                contas.transferir(numero, numeroDestino, valor);
 
                 keyPress();
                 break;
