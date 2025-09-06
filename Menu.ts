@@ -29,44 +29,29 @@ export function main() {
     contas.cadastrar(cp2);
 
     contas.listarTodas();
+    console.log("\n");
 
-    /*// Objeto da Classe ContaCorrente (Teste)
-    const contacorrente: ContaCorrente = new ContaCorrente(2, 123, 1, "Mariana", 15000, 1000);
-    contacorrente.visualizar();
-    contacorrente.sacar(2000);
-    contacorrente.visualizar();
-    contacorrente.depositar(1000);
-    contacorrente.visualizar();
-
-    // Objeto da Classe ContaPoupanca (teste)
-    const contapoupanca: ContaPoupanca = new ContaPoupanca(3, 123, 2, "Victor", 1000, 10);
-    contapoupanca.visualizar();
-    contapoupanca.sacar(200);
-    contapoupanca.visualizar();
-    contapoupanca.depositar(1000);
-    contapoupanca.visualizar();*/
 
     while (true) {
 
-        console.log(colors.bg.black, colors.fg.yellow,
-
-            "************************************************************");
-        console.log("                                                            ");
-        console.log("                      Banco ZeroUm                          ");
-        console.log("                                                            ");
-        console.log("************************************************************");
-        console.log("                                                            ");
-        console.log("                 1 - Criar Conta                            ");
-        console.log("                 2 - Listar todas as Contas                 ");
-        console.log("                 3 - Buscar Conta por Numero                ");
-        console.log("                 4 - Atualizar Dados da Conta               ");
-        console.log("                 5 - Apagar Conta                           ");
-        console.log("                 6 - Sacar                                  ");
-        console.log("                 7 - Depositar                              ");
-        console.log("                 8 - Transferir valores entre Contas        ");
-        console.log("                 9 - Sair                                   ");
-        console.log("                                                            ");
-        console.log("************************************************************");
+        console.log(colors.bg.black, colors.fg.yellow);
+        console.log("* ********************************************************** *");
+        console.log("*                                                            *");
+        console.log("*                       BANCO ZEROUM                         *");
+        console.log("*                                                            *");
+        console.log("* ********************************************************** *");
+        console.log("*                                                            *");
+        console.log("*                 1 - Criar Conta                            *");
+        console.log("*                 2 - Listar todas as Contas                 *");
+        console.log("*                 3 - Buscar Conta por Numero                *");
+        console.log("*                 4 - Atualizar Dados da Conta               *");
+        console.log("*                 5 - Apagar Conta                           *");
+        console.log("*                 6 - Sacar                                  *");
+        console.log("*                 7 - Depositar                              *");
+        console.log("*                 8 - Transferir valores entre Contas        *");
+        console.log("*                 9 - Sair                                   *");
+        console.log("*                                                            *");
+        console.log("* ********************************************************** *");
         console.log("                                                            ",
 
             colors.reset);
@@ -113,55 +98,98 @@ export function main() {
                         break;
                 }
                 keyPress();
+
                 break;
             case 2:
                 console.log(colors.fg.whitestrong,
                     "\n\nListar todas as Contas\n\n", colors.reset);
                 contas.listarTodas();
 
-                keyPress()
+                keyPress();
+
                 break;
             case 3:
                 console.log(colors.fg.whitestrong,
                     "\n\nConsultar dados da Conta - por número\n\n", colors.reset);
+                console.log("Digite o numero da Conta: ");
+                numero = rs.questionInt("");
+                contas.procurarPorNumero(numero);
 
-                keyPress()
+                keyPress();
                 break;
             case 4:
-                console.log(colors.fg.whitestrong,
-                    "\n\nAtualizar dados da Conta\n\n", colors.reset);
+                console.log(colors.fg.whitestrong, "\nAtualizar dados da Conta\n", colors.reset);
 
-                keyPress()
+                console.log("Digite o número da conta: ");
+                numero = rs.questionInt("");
+
+                let conta = contas.buscarNoArray(numero);
+
+                if (conta != null) {
+                    console.log("Digite o nome do agência: ");
+                    agencia = rs.questionInt("");
+
+                    console.log("Digite o nome do titular: ");
+                    titular = rs.question("");
+
+                    tipo = conta.tipo;
+
+                    console.log("Digite o saldo da conta (R$): ");
+                    saldo = rs.questionFloat("");
+
+                    switch (tipo) {
+                        case 1:
+                            console.log("Digite o Limite da Conta (R$): ");
+                            limite = rs.questionFloat("");
+                            contas.atualizar(
+                                new ContaCorrente(numero, agencia, tipo, titular, saldo, limite));
+                            break;
+                        case 2:
+                            console.log("Digite o Dia do aniversário da Conta Poupança: ");
+                            aniversario = rs.questionInt("");
+                            contas.atualizar(new ContaPoupanca(numero, agencia, tipo, titular, saldo, aniversario));
+
+                            break;
+                    }
+                } else {
+                    console.log(colors.fg.red, "\nA Conta número: " + numero +
+                        " não foi encontrada!", colors.reset);
+                }
+                keyPress();
                 break;
+
             case 5:
                 console.log(colors.fg.whitestrong,
                     "\n\nApagar uma Conta\n\n", colors.reset);
+                console.log("Digite o número da conta: ");
+                numero = rs.questionInt("");
+                contas.deletar(numero);
 
-                keyPress()
+                keyPress();
                 break;
             case 6:
                 console.log(colors.fg.whitestrong,
                     "\n\nSaque\n\n", colors.reset);
 
-                keyPress()
+                keyPress();
                 break;
             case 7:
                 console.log(colors.fg.whitestrong,
                     "\n\nDepósito\n\n", colors.reset);
 
-                keyPress()
+                keyPress();
                 break;
             case 8:
                 console.log(colors.fg.whitestrong,
                     "\n\nTransferência entre Contas\n\n", colors.reset);
 
-                keyPress()
+                keyPress();
                 break;
             default:
                 console.log(colors.fg.whitestrong,
                     "\nOpção Inválida!\n", colors.reset);
 
-                keyPress()
+                keyPress();
                 break;
         }
 
@@ -171,11 +199,11 @@ export function main() {
 /* Função com os dados da pessoa desenvolvedora */
 
 export function sobre(): void {
-    console.log("\n*****************************************************");
+    console.log("\n**********************************************************");
     console.log("Projeto Desenvolvido por: Janielle de Oliveira Brito");
     console.log("janielleoliver.brito@gmail.com");
     console.log("https://github.com/JanielleOliveira/projeto-conta-bancaria");
-    console.log("*****************************************************");
+    console.log("**********************************************************");
 }
 
 function keyPress(): void {
